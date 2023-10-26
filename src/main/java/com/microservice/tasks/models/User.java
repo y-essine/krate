@@ -36,11 +36,11 @@ public class User implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    @JsonIgnoreProperties({"owner","members", "tasks"})
+    @JsonIgnoreProperties({"owner","members", "tasks", "boards"})
     @OneToMany(mappedBy = "owner")
     public List<Workspace> ownedWorkspaces = new ArrayList<>();
     
-    @JsonIgnoreProperties({"owner","members", "tasks"})
+    @JsonIgnoreProperties({"owner","members", "tasks", "boards"})
     @ManyToMany(mappedBy = "members")
     public List<Workspace> workspaces = new ArrayList<>();
 

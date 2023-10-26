@@ -3,19 +3,19 @@ package com.microservice.tasks.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.microservice.tasks.models.Board;
 import com.microservice.tasks.models.Task;
 import com.microservice.tasks.models.User;
-import com.microservice.tasks.models.Workspace;
+import com.microservice.tasks.repositories.BoardRepo;
 import com.microservice.tasks.repositories.TaskRepo;
 import com.microservice.tasks.repositories.UserRepo;
-import com.microservice.tasks.repositories.WsRepo;
 
 @Service
 public class TaskService {
     @Autowired
     private TaskRepo taskRepo;
     @Autowired
-    private WsRepo wsRepo;
+    private BoardRepo boardRepo;
     @Autowired
     private UserRepo userRepo;
 
@@ -24,8 +24,8 @@ public class TaskService {
     }
 
     public Task add(Task task) {
-        Workspace ws = wsRepo.findById(task.getWorkspaceId()).orElseThrow(() -> new RuntimeException("Workspace not found"));
-        task.setWorkspace(ws);
+        Board board = boardRepo.findById(task.getBoardId()).orElseThrow(() -> new RuntimeException("Board not found"));
+        task.setBoard(board);
         return taskRepo.save(task);
     }
 

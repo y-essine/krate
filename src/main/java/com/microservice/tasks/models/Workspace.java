@@ -36,5 +36,5 @@ public class Workspace {
     private List<User> members = new ArrayList<User>();
 
     @OneToMany(mappedBy = "workspace")
-    private List<Task> tasks = new ArrayList<Task>();
+    private List<Board> boards = new ArrayList<Board>();
 }

@@ -15,10 +15,6 @@ public class UserService {
         return userRepo.findAll();
     }
 
-    public User add(User user) {
-        return userRepo.save(user);
-    }
-
     public User getByUsername(String username) {
         return userRepo.findByUsername(username);
     }

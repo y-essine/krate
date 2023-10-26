@@ -27,17 +27,16 @@ public class Task {
     @Enumerated(EnumType.STRING)
     private TaskStatus status;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Transient
-    public Long workspaceId;
-
-    @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Workspace workspace;
-
     @JsonIgnoreProperties({"workspaces","ownedWorkspaces","enabled","roles"})
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ManyToMany(fetch = FetchType.LAZY)
     private List<User> assignees = new ArrayList<User>();
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Transient
+    private Long boardId;
+
+    @JsonIgnore
+    @ManyToOne()
+    private Board board;
 }

@@ -50,7 +50,7 @@ public class AuthService {
             return ResponseEntity.badRequest().body("Username already exists");
         }
         User user = new User(username, passwordEncoder.encode(password));
-        userRepo.save(user);
-        return ResponseEntity.ok().body("User created");
+        user = userRepo.save(user);
+        return ResponseEntity.ok().body(user);
     }
 }
