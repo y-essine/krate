@@ -1,5 +1,7 @@
 package com.microservice.tasks.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,24 +20,24 @@ import com.microservice.tasks.services.WsService;
 @RestController
 @RequestMapping("/ws")
 public class WorkspaceController {
-    @Autowired
-    private WsService wsService;
+  @Autowired
+  private WsService wsService;
 
-    @GetMapping("/all")
-    @ResponseStatus
-    public ResponseEntity<Iterable<Workspace>> all() {
-        return ResponseEntity.ok(wsService.getAll());
-    }
+  @GetMapping("/all")
+  @ResponseStatus
+  public ResponseEntity<Iterable<Workspace>> all() {
+    return ResponseEntity.ok(wsService.getAll());
+  }
 
-    @PostMapping()
-    @ResponseStatus
-    public ResponseEntity<Workspace> add(@RequestBody Workspace ws) {
-        return ResponseEntity.ok(wsService.add(ws));
-    }
+  @PostMapping()
+  @ResponseStatus
+  public ResponseEntity<Workspace> add(@Valid @RequestBody Workspace ws) {
+    return ResponseEntity.ok(wsService.add(ws));
+  }
 
-    @PutMapping("/{wsId}/add-member")
-    @ResponseStatus
-    public ResponseEntity<Workspace> addMember(@PathVariable Long wsId, @RequestParam("user") Long userId) {
-        return ResponseEntity.ok(wsService.addMember(wsId, userId));
-    }
+  @PutMapping("/{wsId}/add-member")
+  @ResponseStatus
+  public ResponseEntity<Workspace> addMember(@PathVariable Long wsId, @RequestParam("user") Long userId) {
+    return ResponseEntity.ok(wsService.addMember(wsId, userId));
+  }
 }

@@ -30,26 +30,30 @@ public class AuthService {
     @Autowired
     private JwtService jwtService;
 
-    public ResponseEntity<?> login(String username, String password ){
+    public ResponseEntity<?> login(String username, String password) {
         try {
-            Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+            String lowerCaseUsername = username.toLowerCase();
+            Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(lowerCaseUsername, password));
             String access = jwtService.generateAccessToken(auth);
             String refresh = jwtService.generateRefreshToken(auth);
             // create a map object with the access and refresh tokens
-            Map<String, String> tokens = new HashMap<>();
+            Map<String, Object> tokens = new HashMap<>();
+            // map where the key is string and the value is string or int
             tokens.put("access_token", access);
+            tokens.put("expires_in", 1800);
             tokens.put("refresh_token", refresh);
             return ResponseEntity.ok().body(tokens);
         } catch (AuthenticationException e) {
             return ResponseEntity.badRequest().body("Invalid username/password");
         }
     }
-    
+
     public ResponseEntity<?> register(String username, String password) {
-        if (userRepo.findByUsername(username) != null) {
+        String lowerCaseUsername = username.toLowerCase(); 
+        if (userRepo.findByUsername(lowerCaseUsername) != null) {
             return ResponseEntity.badRequest().body("Username already exists");
         }
-        User user = new User(username, passwordEncoder.encode(password));
+        User user = new User(lowerCaseUsername, passwordEncoder.encode(password));
         user = userRepo.save(user);
         return ResponseEntity.ok().body(user);
     }

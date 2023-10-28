@@ -1,5 +1,7 @@
 package com.microservice.tasks.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,18 +16,18 @@ import com.microservice.tasks.services.AuthService;
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
-    @Autowired
-    private AuthService authService;
+  @Autowired
+  private AuthService authService;
 
-    @PostMapping("/login")
-    @ResponseStatus
-    public ResponseEntity<?> login(@RequestBody User user) {
-        return authService.login(user.getUsername(), user.getPassword());
-    }
+  @PostMapping("/login")
+  @ResponseStatus
+  public ResponseEntity<?> login(@RequestBody User user) {
+    return authService.login(user.getUsername(), user.getPassword());
+  }
 
-    @PostMapping("/register")
-    @ResponseStatus
-    public ResponseEntity<?> register(@RequestBody User user) {
-        return authService.register(user.getUsername(), user.getPassword());
-    }
+  @PostMapping("/register")
+  @ResponseStatus
+  public ResponseEntity<?> register(@Valid @RequestBody User user) {
+    return authService.register(user.getUsername(), user.getPassword());
+  }
 }
