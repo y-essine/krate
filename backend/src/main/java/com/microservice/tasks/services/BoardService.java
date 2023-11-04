@@ -18,4 +18,8 @@ public class BoardService {
   public Iterable<Board> findAll() {
     return boardRepo.findAll();
   }
+
+  public Board findOne(Long id) {
+    return boardRepo.findById(id).orElse(null);
+  }
 }

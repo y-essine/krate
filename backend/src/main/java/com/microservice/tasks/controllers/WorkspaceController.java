@@ -29,15 +29,21 @@ public class WorkspaceController {
     return ResponseEntity.ok(wsService.getAll());
   }
 
+  @GetMapping("/id/{id}")
+  @ResponseStatus
+  public ResponseEntity<Workspace> getById(@PathVariable Long id) {
+    return ResponseEntity.ok(wsService.getById(id));
+  }
+
   @PostMapping()
   @ResponseStatus
   public ResponseEntity<Workspace> add(@Valid @RequestBody Workspace ws) {
     return ResponseEntity.ok(wsService.add(ws));
   }
 
-  @PutMapping("/{wsId}/add-member")
+  @PutMapping("/{id}/add-member")
   @ResponseStatus
-  public ResponseEntity<Workspace> addMember(@PathVariable Long wsId, @RequestParam("user") Long userId) {
-    return ResponseEntity.ok(wsService.addMember(wsId, userId));
+  public ResponseEntity<Workspace> addMember(@PathVariable Long id, @RequestParam("user") Long userId) {
+    return ResponseEntity.ok(wsService.addMember(id, userId));
   }
 }

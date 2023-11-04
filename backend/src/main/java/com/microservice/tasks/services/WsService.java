@@ -23,6 +23,10 @@ public class WsService {
     return wsRepo.findAll();
   }
 
+  public Workspace getById(Long id) {
+    return wsRepo.findById(id).orElseThrow(() -> new RuntimeException("Workspace not found"));
+  }
+
   public Workspace add(Workspace ws) {
     User owner = userRepo.findById(ws.getOwnerId()).orElseThrow(() -> new RuntimeException("User not found"));
     ws.setOwner(owner);
