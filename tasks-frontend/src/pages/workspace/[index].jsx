@@ -27,10 +27,11 @@ export default function Workspace() {
       <div>
         <h1>Workspace: {index}</h1>
 
-        <h2>Boards</h2>
-        {workspace.boards.map((board) => (
-          <BoardCard board={board} key={board.id} />
-        ))}
+        <div className="pt-6">
+            {workspace?.boards && workspace.boards.map((board) => (
+              <BoardCard board={board} key={board.id} />
+            ))}
+        </div>
       </div>
     </>
   );

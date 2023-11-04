@@ -1,43 +1,27 @@
 /** @type {import('tailwindcss').Config} */
-const defaultTheme = require('tailwindcss/defaultTheme');
-
 module.exports = {
-    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
-    theme: {
-        extend: {
-            fontFamily: {
-                sans: ['Inter var', ...defaultTheme.fontFamily.sans]
-            },
-            colors: {
-                primary: '#201e2d',
-                secondary: '#2a2839',
-                tertiary: '#12111B',
-                accent: '#F87171',
-                'primary-t': '#cbd5e1',
-                'secondary-t': '#A29CDE',
-                'tertiary-t': '#5a567c'
-            },
-            screens: {
-                smd: '880px',
-                sm: '640px',
-                xs: '560px',
-                '2xs': '425px'
-            },
-            transitionProperty: {
-                w: 'width'
-            }
-        }
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: '#151616',
+        secondary: '#212222',
+        lighter: '#323232',
+        tertiary: '#12111B',
+        accent: '#723ceb',
+        'accent-light': '#906ab4',
+        'primary-t': '#f7f7f7',
+        'secondary-t': '#A29CDE',
+        'tertiary-t': '#5a567c',
+        'darker-t': '#868686'
+      },
+      screens: {
+        'xs': '560px',
+        '2xs': '370px'
+      }
     },
-    plugins: [require('daisyui'), require('@tailwindcss/line-clamp')],
-    // daisyUI config (optional)
-    daisyui: {
-        styled: true,
-        themes: true,
-        base: true,
-        utils: true,
-        logs: false,
-        rtl: false,
-        prefix: '',
-        darkTheme: 'dark'
-    }
-};
+  },
+}

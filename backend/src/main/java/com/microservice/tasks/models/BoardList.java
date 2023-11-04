@@ -28,7 +28,7 @@ import lombok.Data;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "board_lists")
+@Table(name = "boardlists")
 @Data
 public class BoardList {
   @Id
