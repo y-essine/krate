@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +46,11 @@ public class TaskController {
   @ResponseStatus
   public ResponseEntity<Task> removeAssignee(@PathVariable Long taskId, @RequestParam("user") Long userId) {
     return ResponseEntity.ok(taskService.removeAssignee(taskId, userId));
+  }
+
+  @DeleteMapping("/{id}")
+  @ResponseStatus
+  public ResponseEntity<Task> delete(@PathVariable Long id) {
+    return ResponseEntity.ok(taskService.delete(id));
   }
 }

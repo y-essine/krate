@@ -44,7 +44,7 @@ public class Task {
   private Long boardListId;
 
   @JsonIgnore
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne()
   @JoinColumn(name = "boardListId", insertable = false, updatable = false)
   private BoardList boardList;
 

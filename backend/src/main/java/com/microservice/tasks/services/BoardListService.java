@@ -30,4 +30,10 @@ public class BoardListService {
     return boardListRepo.findAll();
   }
 
+  public BoardList deleteById(Long id) {
+    BoardList boardList = boardListRepo.findById(id).orElseThrow(() -> new RuntimeException("BoardList not found"));
+    boardListRepo.deleteById(id);
+    return boardList;
+  }
+
 }

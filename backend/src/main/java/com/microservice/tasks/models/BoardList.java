@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
@@ -50,7 +51,7 @@ public class BoardList {
   @JoinColumn(name = "boardId", insertable = false, updatable = false)
   private Board board;
 
-  @OneToMany(mappedBy = "boardList")
+  @OneToMany(mappedBy = "boardList", cascade = CascadeType.REMOVE, orphanRemoval = true)
   public List<Task> tasks = new ArrayList<Task>();
 
   @CreatedDate
