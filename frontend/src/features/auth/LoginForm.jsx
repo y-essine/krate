@@ -34,7 +34,7 @@ export default function LoginForm() {
 
   return (
     <>
-      <div className="flex flex-col items-center gap-12">
+      <div className="flex flex-col items-center gap-4">
         <div className="h-20 text-xl font-extrabold flex items-center justify-center">
           <div className="hover:text-accent cursor-default">Login</div>
         </div>
@@ -71,15 +71,6 @@ export default function LoginForm() {
               />
               {errors.password && <div className="text-red-500">{errors.password.message}</div>}
             </div>
-            {/* <div className="flex justify-between items-center">
-              <div className="flex items-center gap-2">
-                <input type="checkbox" name="remember" id="remember" />
-                <label htmlFor="remember">Remember me</label>
-              </div>
-              <a href="#" className="text-accent-light hover:underline">
-                Forgot password?
-              </a>
-            </div> */}
             <button
               type="submit"
               className="bg-accent text-white rounded-md px-4 py-2 hover:bg-accent/70">

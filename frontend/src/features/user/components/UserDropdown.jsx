@@ -24,7 +24,7 @@ const UserDropdownAvatar = () => {
             )}
           </Menu.Item>
         </div>
-        <div class="py-1">
+        <div className="py-1">
           <Menu.Item>
             {({ active }) => (
               <div className="px-1">

@@ -22,7 +22,7 @@ const Workspace = () => {
   return (
     <>
       <Head>
-        <title>Workspace - Krate {workspace && workspace?.name}</title>
+        <title>Workspace - Krate </title>
       </Head>
       <MainLayout>
         <div className="py-6">
