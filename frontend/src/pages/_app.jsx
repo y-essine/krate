@@ -22,6 +22,7 @@ export default function App({ Component, pageProps }) {
       })
       .catch((err) => {
         console.log(err);
+        router.push('/login');
       });
   }, [router.pathname, setPage]);
 

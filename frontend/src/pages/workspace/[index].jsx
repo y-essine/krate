@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { workspaceService } from '@/services';
+import { workspaceStore } from '@/store';
 import MainLayout from '@/shared/components/layouts/MainLayout';
 import Head from 'next/head';
 // import BoardCard from '../../components/ui/card/BoardCard';
@@ -11,10 +12,13 @@ const Workspace = () => {
   const router = useRouter();
   const { index } = router.query;
 
+  const { setWs } = workspaceStore();
+
   useEffect(() => {
     if (index) {
       workspaceService.fetch(index).then((res) => {
         setWorkspace(res.data);
+        setWs(res.data);
       });
     }
   }, [index]);

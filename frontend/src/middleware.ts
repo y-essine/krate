@@ -1,8 +1,9 @@
 // pages/_middleware.ts
 import { NextRequest, NextResponse } from 'next/server';
 import cookie from 'cookie';
+import { authService } from './services';
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const cookies = cookie.parse(req.headers.get('cookie') || '');
   const token = cookies.accessToken;
 
