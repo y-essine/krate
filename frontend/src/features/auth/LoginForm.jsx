@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import { authService } from '@/services';
 import { useForm } from 'react-hook-form';
 import { authStore } from '@/store';
+import Cookies from 'js-cookie';
 
 export default function LoginForm() {
   const router = useRouter();
@@ -14,12 +14,19 @@ export default function LoginForm() {
   } = useForm();
 
   const onSubmit = async (data) => {
-    await authService.login(data).then((res) => {
-      localStorage.setItem('accessToken', res.data.access_token);
-      localStorage.setItem('refreshToken', res.data.refresh_token);
-      localStorage.setItem('expiresIn', res.data.expires_in);
-      setTokens(res.data);
-    });
+    setTokens({});
+    await authService
+      .login(data)
+      .then((res) => {
+        Cookies.set('accessToken', res.data.access_token);
+        Cookies.set('refreshToken', res.data.refresh_token);
+        Cookies.set('expiresIn', res.data.expires_in);
+        setTokens(res.data);
+        router.push('/');
+      })
+      .catch((err) => {
+        alert(err);
+      });
     // if (response) {
     //   router.push('/home');
     // }

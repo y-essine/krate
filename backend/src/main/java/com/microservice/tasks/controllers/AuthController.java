@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,4 +31,10 @@ public class AuthController {
   public ResponseEntity<?> register(@Valid @RequestBody User user) {
     return authService.register(user.getUsername(), user.getPassword());
   }
+
+  @PostMapping("/token/{token}")
+    @ResponseStatus
+    public ResponseEntity<?> getUser(@PathVariable String token) {
+        return authService.getUser(token);
+    }
 }

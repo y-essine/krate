@@ -57,4 +57,10 @@ public class AuthService {
         user = userRepo.save(user);
         return ResponseEntity.ok().body(user);
     }
+
+    public ResponseEntity<?> getUser(String token) {
+        String username = jwtService.getUsernameFromToken(token);
+        User user = userRepo.findByUsername(username);
+        return ResponseEntity.ok().body(user);
+    }
 }
