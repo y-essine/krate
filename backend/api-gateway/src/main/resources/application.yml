@@ -7,50 +7,26 @@ logging:
 
 server:
   port: 8080
-keycloak-client:
-  server-url: http://localhost:18080/auth
-  realm:  spring-micro-main
+
 spring:
   application:
     name: api-gateway
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            provider: keycloak
-            client-id: spring-micro-gateway
-            client-secret: 756b0558-018b-4809-b478-bd5b4995d325
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
-            scope: openid
-        provider:
-          keycloak:
-            authorization-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/auth
-            token-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/token
-            user-info-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/userinfo
-            jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
-            user-name-attribute: name
-            user-info-authentication-method: header
-      resourceserver:
-        jwt:
-          jwk-set-uri: ${keycloak-client.server-url}/realms/${keycloak-client.realm}/protocol/openid-connect/certs
   cloud:
     gateway:
       routes:
-        - id: microservice-suggest
-          uri: lb://microservice-suggest
+        - id: ms-suggest
+          uri: lb://ms-suggest
           predicates:
             - Path=/api/gen/**
           filters:
-            - TokenRelay=
+            # - TokenRelay=
             - RemoveRequestHeader=Cookie
-        - id: microservice-main
-          uri: lb://microservice-main
+        - id: ms-tasks
+          uri: lb://ms-tasks
           predicates:
             - Path=/api/**
           filters:
-            - TokenRelay=
+            # - TokenRelay=
             - RemoveRequestHeader=Cookie
 eureka:
   client:

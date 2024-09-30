@@ -33,7 +33,8 @@ public class AuthService {
     public ResponseEntity<?> login(String username, String password) {
         try {
             String lowerCaseUsername = username.toLowerCase();
-            Authentication auth = authManager.authenticate(new UsernamePasswordAuthenticationToken(lowerCaseUsername, password));
+            Authentication auth = authManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(lowerCaseUsername, password));
             String access = jwtService.generateAccessToken(auth);
             String refresh = jwtService.generateRefreshToken(auth);
             // create a map object with the access and refresh tokens
@@ -49,7 +50,7 @@ public class AuthService {
     }
 
     public ResponseEntity<?> register(String username, String password) {
-        String lowerCaseUsername = username.toLowerCase(); 
+        String lowerCaseUsername = username.toLowerCase();
         if (userRepo.findByUsername(lowerCaseUsername) != null) {
             return ResponseEntity.badRequest().body("Username already exists");
         }
@@ -59,6 +60,12 @@ public class AuthService {
     }
 
     public ResponseEntity<?> getUser(String token) {
+        String username = jwtService.getUsernameFromToken(token);
+        User user = userRepo.findByUsername(username);
+        return ResponseEntity.ok().body(user);
+    }
+
+    public ResponseEntity<?> validate(String token) {
         String username = jwtService.getUsernameFromToken(token);
         User user = userRepo.findByUsername(username);
         return ResponseEntity.ok().body(user);
