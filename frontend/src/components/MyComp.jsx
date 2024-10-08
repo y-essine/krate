@@ -1,11 +1,10 @@
-import { Description, Field, Input, Label } from "@headlessui/react";
-import clsx from "clsx";
-import TestComp from "./TestComp";
-import { useLottie } from "lottie-react";
 import poker from "@/assets/lottie/poker.json";
 import { useTaskStore } from "@/stores";
-import { Trash } from "lucide-react";
-import { GripVertical } from "lucide-react";
+import { Description, Field, Input, Label } from "@headlessui/react";
+import clsx from "clsx";
+import { useLottie } from "lottie-react";
+import TaskList from "./Tasks/TaskList";
+import TestComp from "./TestComp";
 
 const MyComponent = () => {
     const options = {
@@ -39,25 +38,7 @@ const MyComponent = () => {
 
             <div className="w-full h-40">{View}</div>
 
-            {tasks.map((task) => (
-                <div className="relative group h-10">
-                    <div className="absolute -left-5  hidden group-hover:flex h-full  items-center ">
-                        <GripVertical className="size-5 text-white/50 hover:cursor-grab" />
-                    </div>
-                    <div
-                        key={task.id}
-                        className="flex items-center justify-between gap-2 bg-white/5 rounded-lg px-3 py-2 h-full"
-                    >
-                        <div className="font-medium">{task.title}</div>
-                        <button
-                            className="text-white/50 hidden group-hover:block"
-                            onClick={() => useTaskStore.removeTask(task)}
-                        >
-                            <Trash className="size-4" />
-                        </button>
-                    </div>
-                </div>
-            ))}
+            <TaskList tasks={tasks} />
         </div>
     );
 };

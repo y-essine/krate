@@ -1,10 +1,10 @@
 debug: true
 server:
-  port: 9082
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:9090/eureka/
+  port: 8082
+# eureka:
+#   client:
+#     serviceUrl:
+#       defaultZone: http://localhost:9091/eureka/
 spring:
   application:
     name: ms-tasks
@@ -16,9 +16,9 @@ spring:
         enabled: true
         path: /h2
   datasource:
-    # url: jdbc:postgresql://localhost:5432/tasks
-    # username: postgres
-    # password: x123x
+    url: jdbc:postgresql://localhost:5432/tasks
+    username: postgres
+    password: "0430"
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

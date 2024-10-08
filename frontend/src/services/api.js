@@ -1,8 +1,8 @@
-import { create } from "axios";
+import axios from "axios";
 
-const baseURL = "http://localhost:8080/api";
+const baseURL = "http://localhost:8082/api";
 
-const api = create({
+const api = axios.create({
     baseURL: baseURL,
     timeout: 60 * 1000,
     headers: {

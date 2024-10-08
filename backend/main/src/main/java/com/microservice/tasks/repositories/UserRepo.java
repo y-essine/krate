@@ -8,4 +8,7 @@ import com.microservice.tasks.models.User;
 public interface UserRepo extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User u WHERE u.username = ?1")
     public User findByUsername(String username);
+
+    @Query("SELECT u FROM User u WHERE u.email = ?1")
+    public User findByEmail(String email);
 }

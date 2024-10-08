@@ -12,10 +12,11 @@ const useTaskStore = create((set) => ({
         description: "This is task 2",
     }],
     addTask: (task) => set((state) => ({ tasks: [...state.tasks, task] })),
-    removeTask: (task) =>
+    removeTask: (id) => {
         set((state) => ({
-            tasks: state.tasks.filter((t) => t !== task),
-        })),
+            tasks: state.tasks.filter((t) => t.id != id),
+        })); console.log("deleted task", { id });
+    }
 }));
 
 export default useTaskStore;

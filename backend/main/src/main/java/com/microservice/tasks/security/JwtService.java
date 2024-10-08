@@ -23,7 +23,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class JwtService implements UserDetailsService {
     @Autowired
     private UserRepo userRepo;
-    
+
     @Value("${jwt.secret}")
     private String secret;
 
@@ -34,15 +34,19 @@ public class JwtService implements UserDetailsService {
     private Long refreshExpiration;
 
     public String generateAccessToken(Authentication auth) {
-        User user = (User) auth.getPrincipal();
+        Object principal = auth.getPrincipal();
+        if (!(principal instanceof UserDetails)) {
+            throw new IllegalArgumentException("Principal is not an instance of UserDetails");
+        }
+        UserDetails user = (UserDetails) principal;
         Date now = new Date();
         Date expiration = new Date(now.getTime() + accessExpiration * 1000 * 60);
         return Jwts.builder()
-            .setSubject(user.getUsername())
-            .setIssuedAt(now)
-            .setExpiration(expiration)
-            .signWith(SignatureAlgorithm.HS512, secret)
-            .compact();
+                .setSubject(user.getUsername())
+                .setIssuedAt(now)
+                .setExpiration(expiration)
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
     public String generateRefreshToken(Authentication auth) {
@@ -50,19 +54,18 @@ public class JwtService implements UserDetailsService {
         Date now = new Date();
         Date expiration = new Date(now.getTime() + refreshExpiration * 1000);
         return Jwts.builder()
-            .setSubject(user.getId().toString())
-            .setIssuedAt(now)
-            .setExpiration(expiration)
-            .signWith(SignatureAlgorithm.HS512, secret)
-            .compact();
+                .setSubject(user.getId().toString())
+                .setIssuedAt(now)
+                .setExpiration(expiration)
+                .signWith(SignatureAlgorithm.HS512, secret)
+                .compact();
     }
 
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
             return true;
-        }
-        catch (JwtException | IllegalArgumentException e) {
+        } catch (JwtException | IllegalArgumentException e) {
             return false;
         }
     }
@@ -71,7 +74,6 @@ public class JwtService implements UserDetailsService {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
 
-    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(username);

@@ -30,77 +30,82 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "users")
 public class User implements UserDetails {
-  @Id
-  @GeneratedValue
-  private Long id;
+    @Id
+    @GeneratedValue
+    private Long id;
 
-  @NonNull
-  @Column(nullable = false, unique = true)
-  @Length(min = 3, max = 40, message = "Username must be between 3 and 40 characters")
-  private String username;
+    @NonNull
+    @Column(nullable = false, unique = true)
+    @Length(min = 3, max = 40, message = "Email must be between 3 and 40 characters")
+    private String email;
 
-  @NonNull
-  @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-  private String password;
+    @NonNull
+    @Column(nullable = false, unique = true)
+    @Length(min = 3, max = 40, message = "Username must be between 3 and 40 characters")
+    private String username;
 
-  @JsonIgnoreProperties({ "owner", "members", "tasks", "boards", "createdAt", "updatedAt" })
-  @OneToMany(mappedBy = "owner")
-  public List<Workspace> ownedWorkspaces = new ArrayList<>();
+    @NonNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 
-  @JsonIgnoreProperties({ "owner", "members", "tasks", "boards", "createdAt", "updatedAt" })
-  @ManyToMany(mappedBy = "members")
-  public List<Workspace> workspaces = new ArrayList<>();
+    @JsonIgnoreProperties({ "owner", "members", "tasks", "boards", "createdAt", "updatedAt" })
+    @OneToMany(mappedBy = "owner")
+    public List<Workspace> ownedWorkspaces = new ArrayList<>();
 
-  @ManyToMany(fetch = FetchType.EAGER)
-  public List<Role> roles = new ArrayList<>();
+    @JsonIgnoreProperties({ "owner", "members", "tasks", "boards", "createdAt", "updatedAt" })
+    @ManyToMany(mappedBy = "members")
+    public List<Workspace> workspaces = new ArrayList<>();
 
-  @JsonIgnore
-  @Override
-  public Collection<? extends GrantedAuthority> getAuthorities() {
-    List<GrantedAuthority> authorities = new ArrayList<>();
-    // for (Role role : roles) {
-    // authorities.add(new SimpleGrantedAuthority(role.getName()));
-    // }
-    return authorities;
-  }
+    @ManyToMany(fetch = FetchType.EAGER)
+    public List<Role> roles = new ArrayList<>();
 
-  @JsonIgnore
-  @Override
-  public boolean isAccountNonExpired() {
-    return true;
-  }
+    @JsonIgnore
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        // for (Role role : roles) {
+        // authorities.add(new SimpleGrantedAuthority(role.getName()));
+        // }
+        return authorities;
+    }
 
-  @JsonIgnore
-  @Override
-  public boolean isAccountNonLocked() {
-    return true;
-  }
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-  @JsonIgnore
-  @Override
-  public boolean isCredentialsNonExpired() {
-    return true;
-  }
+    @JsonIgnore
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-  @Override
-  public boolean isEnabled() {
-    return true;
-  }
+    @JsonIgnore
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-  @CreatedDate
-  private LocalDateTime createdAt;
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
-  @LastModifiedDate
-  private LocalDateTime updatedAt;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-  @PrePersist
-  public void prePersist() {
-    createdAt = LocalDateTime.now();
-    updatedAt = LocalDateTime.now();
-  }
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 
-  @PreUpdate
-  public void preUpdate() {
-    updatedAt = LocalDateTime.now();
-  }
+    @PrePersist
+    public void prePersist() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
 }

@@ -1,6 +1,7 @@
 import MyComp from "@/components/MyComp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./pages/Main";
+import Login from "./pages/Login";
 
 function App() {
     return (
@@ -9,7 +10,7 @@ function App() {
                 <Route exact path="/" element={<Main />}>
                     <Route path="" element={<MyComp />} />
                 </Route>
-                <Route path="login" element={<h1>Login</h1>} />
+                <Route path="login" element={<Login />} />
                 <Route path="register" element={<h1>Register</h1>} />
 
                 <Route

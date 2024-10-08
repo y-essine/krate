@@ -23,13 +23,13 @@ public class AuthController {
     @PostMapping("/login")
     @ResponseStatus
     public ResponseEntity<?> login(@RequestBody User user) {
-        return authService.login(user.getUsername(), user.getPassword());
+        return authService.login(user);
     }
 
     @PostMapping("/register")
     @ResponseStatus
     public ResponseEntity<?> register(@Valid @RequestBody User user) {
-        return authService.register(user.getUsername(), user.getPassword());
+        return authService.register(user.getEmail(), user.getPassword());
     }
 
     @PostMapping("/token/{token}")
@@ -42,5 +42,12 @@ public class AuthController {
     @ResponseStatus
     public ResponseEntity<?> validate(@PathVariable String token) {
         return authService.validate(token);
+    }
+
+    @PostMapping("/google/{token}")
+    @ResponseStatus
+    public ResponseEntity<?> googleLogin(@PathVariable String token) {
+        System.out.println(token);
+        return authService.googleAuth(token);
     }
 }
