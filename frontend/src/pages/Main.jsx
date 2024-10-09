@@ -6,9 +6,11 @@ const Main = () => {
     return (
         <div className="flex h-full">
             <Sidebar />
-            <div className="h-screen w-full flex-grow">
+            <div className="h-screen w-full flex-grow ">
                 <Navbar />
-                <Outlet />
+                <div className="pb-16">
+                    <Outlet />
+                </div>
             </div>
         </div>
     );

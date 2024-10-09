@@ -116,7 +116,7 @@ public class AuthService {
                     // Create new user
                     String username = userGenService.generateUsername();
                     String password = userGenService.generatePassword();
-                    User newUser = new User(username, sanitizedEmail, passwordEncoder.encode(password));
+                    User newUser = new User(sanitizedEmail, username, passwordEncoder.encode(password));
                     newUser = userRepo.save(newUser);
                     existingUser = newUser;
                 }
